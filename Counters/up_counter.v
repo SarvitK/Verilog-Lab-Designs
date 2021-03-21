@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    22:00:48 10/02/2020 
+// Create Date:    23:43:47 12/07/2020 
 // Design Name: 
-// Module Name:    or_gate 
+// Module Name:    up_counter 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,9 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module or_gate(
-    input a,b,
-    output c
+module up_counter(
+    input clk,rst,
+    output reg [3:0] count
     );
-assign c = a | b ;
+
+	always @(posedge clk)
+		begin
+			if(rst)
+				count =4'b0000;
+			else
+				count = count+4'b0001;
+		end
+
 endmodule

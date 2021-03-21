@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    20:10:26 10/18/2020 
+// Create Date:    09:26:02 12/08/2020 
 // Design Name: 
-// Module Name:    twoxtwo_mul 
+// Module Name:    up_down_counter 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,22 +18,15 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module twoxtwo_mul(
-    input [1:0] a,
-    input [1:0] b,
-    output [3:0] out
+module up_down_counter(
+    input mode, clr,clk,ld,
+    input [3:0] d_in,
+    output reg [3:0] count
     );
-	 
-	 wire t1,t2,t3;
-	 
-	 assign out[0]=a[0]&b[0];
-	 
-	 assign t1=a[0]&b[1];
-	 assign t2=a[1]&b[0];
-	 
-	 assign t3=a[1]&b[1];
-	 
-	 half_add A1 (t1,t2,out[1],t4);
-	 half_add A2 (t3,t4,out[2],out[3]);
-	 
+	 always @ (posedge clk)
+		if(ld)          count = d_in;
+		else if (clr)   count = 4'b0000;
+		else if (mode)  count = count + 4'b0001;
+		else            count = count + 4'b1110 + 4'b0001;
+		
 endmodule

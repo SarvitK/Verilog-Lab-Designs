@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    11:31:24 10/13/2020 
+// Create Date:    09:50:35 12/08/2020 
 // Design Name: 
-// Module Name:    mux8x1 
+// Module Name:    modN_counter 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,17 +18,25 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module mux8x1(
-    input [7:0] it,
-    input [2:0] sl,
-    output ot
-    );
-	 //wire w0,w1 ;        //rules out 
-	 wire [1:0]w;
-	 
-	 mux4to1 M1 (it[3:0], sl[1:0], w[0]);
-	 mux4to1 M2 (it[7:4], sl[1:0], w[1]);
-	 mux2to1 M3 (w[1:0], sl[2], ot);
-	 //mux4to1 M3 (w1, w2, sl[2], ot);   //As at input bus was given in definition of mux4to1  
-	 
+module mod10_counter
+//	#(parameter N=10,
+//	  parameter width=4)
+	 (
+	 input clk,rstn,
+	 output reg [3:0] out
+	 );
+	
+	
+	always @ (posedge clk)
+		begin 
+			if (!rstn) out = 4'b0000;
+			else
+				begin 
+					if (out == 4'b1001)
+						out = 4'b0000;
+					else
+						out = out+4'b0001;
+				end
+		end
+			
 endmodule
